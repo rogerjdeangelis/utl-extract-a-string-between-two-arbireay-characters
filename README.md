@@ -1,5 +1,4 @@
 # utl-extract-a-string-between-two-arbireay-characters
-Extract a string between two arbireay characters
     Extract a string between two arbitrary characters
 
     I assume there is only one such substring in each record
@@ -16,6 +15,9 @@ Extract a string between two arbireay characters
      SIX SOLUTIONS
 
        No Regular expressions solutions
+
+        0. Recommended solution Paul Dorfman sashole@bellsouth.net
+            str = scan (substrn (str, findc (str, "X")), 1, ",X") ;
 
         1. Call Scan
             call scan("a"||str,2,pos,len,"X,");
@@ -40,12 +42,6 @@ Extract a string between two arbireay characters
            prxMatch(prxId, char_str)
            prxPosn(prxId, 1, char_str);
 
-
-        6. Multiple prx statements
-
-           pid=prxparse('/(?<=x).+?(?=,)/i');
-           call prxsubstr(pid,x,p,l);
-           want=substr(x,p,l);
 
 
     There are only a few places where regular expression are superior to
@@ -75,6 +71,24 @@ Extract a string between two arbireay characters
     |_| |_|\___/  | .__/|_|  /_/\_\
                   |_|
     ;
+
+    ************************************************************
+    0. Recommended solution Paul Dorfman sashole@bellsouth.net *
+    ************************************************************
+
+    data want;
+       input str $ 1-20;
+       str = scan (substrn (str, findc (str, "X")), 1, ",X") ;
+    cards4;
+    X20l,p5,op3
+    cX3z,p4,op2(1)
+    ;;;;
+    run;quit;
+
+    If X isn't in STR, this returns the whole STR.
+    If a blank is more desirable, it can be handled using IFC.
+    Regexen are definitely an overkill here.
+
 
     **************
     1. Call Scan *
