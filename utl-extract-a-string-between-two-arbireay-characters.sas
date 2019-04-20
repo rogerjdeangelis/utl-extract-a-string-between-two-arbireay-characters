@@ -1,4 +1,4 @@
-Extract a string between two arbireay characters
+Extract a string between two arbitrary characters
 
 I assume there is only one such substring in each record
 
@@ -13,7 +13,7 @@ https://communities.sas.com/t5/New-SAS-User/Extract-specific-pattern/m-p/552529
 
  SIX SOLUTIONS
 
-   No Regular expressions
+   No Regular expressions solutions
 
     1. Call Scan
         call scan("a"||str,2,pos,len,"X,");
@@ -32,14 +32,14 @@ https://communities.sas.com/t5/New-SAS-User/Extract-specific-pattern/m-p/552529
 
        str = prxchange('s/^[^X]*X(.*?)\x2C.*$/$1/',1,str);
 
-    5. Mutiple prx statements
+    5. Multiple prx statements
 
        prxId + prxParse("/X(\w+?),/i");
        prxMatch(prxId, char_str)
        prxPosn(prxId, 1, char_str);
 
 
-    6. Mutiple prx statements
+    6. Multiple prx statements
 
        pid=prxparse('/(?<=x).+?(?=,)/i');
        call prxsubstr(pid,x,p,l);
@@ -49,7 +49,7 @@ https://communities.sas.com/t5/New-SAS-User/Extract-specific-pattern/m-p/552529
 There are only a few places where regular expression are superior to
 SAS character functions?
 
-    Problems for regular expressions use use SAS character function
+    Problems for regular expressions use SAS character function
 
      1. Do the two lists have any common words
         if prxmatch('/MAY|STEVE/',"ROGER MAY PENG")>0 then put 'MAY is in both strings';
